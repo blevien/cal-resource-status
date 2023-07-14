@@ -1,7 +1,17 @@
+# MacOS
 .DS_Store
+
+# Credentials
 credentials.json
-db.sqlite3
 token.json
+
+# Database
+db.sqlite3
+
+# Virtual Environment
 ve/
-.pyc
-__pycache__/
+
+# Compiled Python
+*.pyc
+__pycache__
+pyc
