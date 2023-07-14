@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<h1>This Week</h1>
+
+{% for day in days %}
+<h1>{{ day.date }}</h1>
+<ul>
+  {% for location in day.locations %}
+  <li>{{ location.name }}</li>
+    <ul>
+    {% for event in location.events %}
+        <li>{{ event.summary }}: {{ event.start|date:'h:i' }} to {{ event.end|date:'h:i' }}</li>
+    {% endfor %}
+    </ul>
+  {% endfor %}
+  </ul>
+{% endfor %}
+
+{% endblock %}
+
+
+
+

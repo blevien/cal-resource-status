@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<h1>{{ title }}</h1>
+
+<div class="card-group">
+{% for day in days %}
+    <div class="card">
+      <div class="card-header text-center fw-bold">{{ day.date }}</div>
+      <div class="card-body">
+        {% for location in day.locations %}
+          <h6 class="text-muted card-header text-center fw-bold">{{ location.name }}</h6>
+          <ul class="list-group">
+          {% for event in location.events %}
+          <li class="list-group-item">
+            <div>{{ event.summary}}</div>
+            <div>{{ event.start|date:'h:i' }} to {{ event.end|date:'h:i' }}</div>
+          </li>
+          {% endfor %}
+          </ul>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+{% endblock %}
+
+
+
+
