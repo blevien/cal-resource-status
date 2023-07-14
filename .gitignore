@@ -1,0 +1,7 @@
+.DS_Store
+credentials.json
+db.sqlite3
+token.json
+ve/
+.pyc
+__pycache__/
