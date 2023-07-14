@@ -27,9 +27,13 @@ def index(request):
         day_events = {"date": date, "locations": []}
         for location in locations:
             location_events = Event.objects.filter(locations=location,start__year=date.year, start__month=date.month, start__day=date.day)
-            #location_string = re.findall(location_regex, location.name)[0]
+            # Remove Occupancy
+            cleaned_name = re.sub("[\(\[].*?[\)\]]", "", location.name)
+            # Remove Building & Floor
+            cleaned_name = re.sub("[A-Z].+-", "", cleaned_name)
+            print(cleaned_name)
             #if location_events:
-            day_events["locations"].append({"name": location, "events": location_events})
+            day_events["locations"].append({"name": cleaned_name, "events": location_events})
         days.append(day_events)
             
     context = {

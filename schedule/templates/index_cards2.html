@@ -5,10 +5,11 @@
 
 <h1>{{ title }}</h1>
 
-  <div class="container">
-    <div class="row">
+  <div class="container-fluid">
+    <div class="row d-flex flex-row flex-nowrap overflow-auto">
       {% for day in days %}
-      <div class="col-md-4">
+      
+      <div class="col-md-4 col-lg-3 col-xl-3">
         <h2 class="card-title text-center">{{ day.date|date:'m/d'  }}</h2>
         {% for location in day.locations %}
         <div class="card mb-3 bg-light">
