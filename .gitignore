@@ -13,5 +13,3 @@ ve/
 
 # Compiled Python
 *.pyc
-__pycache__
-pyc

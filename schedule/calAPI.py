@@ -32,7 +32,7 @@ class EventsAPI:
             with open('token.json', 'w') as token:
                 token.write(self.creds.to_json())
     
-    def get_events(self):
+    def get_events(self, calendar_name):
         try:
             service = build('calendar', 'v3', credentials=self.creds)
 
@@ -43,7 +43,9 @@ class EventsAPI:
             end = end.replace(hour=23, minute=59, second=59, microsecond=999999)
 
             # Set Up Calendar ID
-            calendarID = 'c_92b38e8ecacdf175ed86b2f41a37443b60af1b288cb0e96103fedff6df5b639b@group.calendar.google.com'
+            print(calendar_name)
+            calendarID = Calendar.objects.get(summary=calendar_name).url
+            #calendarID = 'c_92b38e8ecacdf175ed86b2f41a37443b60af1b288cb0e96103fedff6df5b639b@group.calendar.google.com'
             
             # Call the Calendar API
             events_result = service.events().list(calendarId=calendarID, 
@@ -95,7 +97,7 @@ class EventsAPI:
                                                 start=start, 
                                                 end=end, 
                                                 summary=summary,
-                                                calendar=Calendar.objects.get(summary=calendar.get("summary").strip()))
+                                                calendar=Calendar.objects.get(summary=calendar_name))
                     new_event.save()
                     
                     try:

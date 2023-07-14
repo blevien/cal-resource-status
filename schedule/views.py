@@ -12,8 +12,9 @@ from django.db.models import Exists, OuterRef
 def index(request):
     """View function for home page of site."""
 
+    calendar_name = "Athletic Facilities Calendar"
     API = EventsAPI()
-    calendar = Calendar.objects.get(pk=1)
+    events_result = API.get_events(calendar_name)
 
     # Controls how many and which dates to ssend to template
     base = datetime.today().date()
@@ -32,7 +33,7 @@ def index(request):
         days.append(day_events)
             
     context = {
-        "title": calendar.summary,
+        "title": calendar_name,
         "days": days,
 
     }
