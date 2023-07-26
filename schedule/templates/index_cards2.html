@@ -3,17 +3,18 @@
 
 {% block content %}
 
-<h1>{{ title }}</h1>
+<h1 class="text-center">{{ title }} Calendar</h1>
+</br>
+<!-- Date Filter: https://simpleisbetterthancomplex.com/references/2016/06/21/date-filter.html -->
 
-  <div class="container-fluid">
     <div class="row d-flex flex-row flex-nowrap overflow-auto">
       {% for day in days %}
       
       <div class="col-md-4 col-lg-3 col-xl-3">
-        <h2 class="card-title text-center">{{ day.date|date:'m/d'  }}</h2>
+        <h2 class="card-title text-center">{{ day.date|date:'l n/d'  }}</h2>
         {% for location in day.locations %}
-        <div class="card mb-3 bg-light">
-          <div class="card-body">
+        <div class="card mb-2 pb-0 bg-light">
+          <div class="card-body pb-0">
             <h5 class="card-title" style="color:darkblue;">{{ location.name }}</h5>
             <ul>
             {% for event in location.events %}
@@ -21,7 +22,6 @@
             {% empty %}
               <li class="card-text">No Events Scheduled</p>
             {% endfor %}
-            
             </ul>
           </div>
         </div>
@@ -29,7 +29,6 @@
       </div>
       {% endfor %}
       </div>
-    </div>
 
 {% endblock %}
 

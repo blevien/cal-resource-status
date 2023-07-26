@@ -9,30 +9,28 @@ from django.db.models import Exists, OuterRef
 # TODO User Friendly Location Names
 # location_regex = "(?<=\-)[A-Z](.*?)(?= \()"
 
-def index(request):
+def index(request, display):
     """View function for home page of site."""
 
-    calendar_name = "Athletic Facilities Calendar"
-    API = EventsAPI()
-    events_result = API.get_events(calendar_name)
+    # Gets events from Google & adds or updates in DB
+    #API = EventsAPI()
+    #events_result = API.get_events(calendar_name)
+
+    calendar_name = Display.objects.get(id=int(display)).name
+    locations = Location.objects.filter(name__startswith=calendar_name).order_by('name')
 
     # Controls how many and which dates to ssend to template
     base = datetime.today().date()
     date_list = [base + timedelta(days=x) for x in range(7)]
-
     days = []
-    locations = Location.objects.all().order_by('name')
 
     for date in date_list:
         day_events = {"date": date, "locations": []}
         for location in locations:
             location_events = Event.objects.filter(locations=location,start__year=date.year, start__month=date.month, start__day=date.day)
-            # Remove Occupancy
+            # Remove Occupancy, Building & Floor for display
             cleaned_name = re.sub("[\(\[].*?[\)\]]", "", location.name)
-            # Remove Building & Floor
             cleaned_name = re.sub("[A-Z].+-", "", cleaned_name)
-            print(cleaned_name)
-            #if location_events:
             day_events["locations"].append({"name": cleaned_name, "events": location_events})
         days.append(day_events)
             
