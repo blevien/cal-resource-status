@@ -39,7 +39,7 @@ class EventsAPI:
             # Set the Start/End base on current
             start = datetime.now()
             start = start.replace(hour=0, minute=0, second=0, microsecond=1)
-            end = start + timedelta(days=5)
+            end = start + timedelta(days=7)
             end = end.replace(hour=23, minute=59, second=59, microsecond=999999)
 
             # Set Up Calendar ID

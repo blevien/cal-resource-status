@@ -13,11 +13,12 @@ def index(request, display):
     """View function for home page of site."""
 
     # Gets events from Google & adds or updates in DB
-    #API = EventsAPI()
-    #events_result = API.get_events(calendar_name)
+    API = EventsAPI()
+    calendar = Display.objects.get(id=int(display)).calendar
+    API.get_events(calendar.summary)
 
-    calendar_name = Display.objects.get(id=int(display)).name
-    locations = Location.objects.filter(name__startswith=calendar_name).order_by('name')
+    display = Display.objects.get(id=int(display))
+    locations = Location.objects.filter(name__startswith=display.name).order_by('name')
 
     # Controls how many and which dates to ssend to template
     base = datetime.today().date()
@@ -35,7 +36,7 @@ def index(request, display):
         days.append(day_events)
             
     context = {
-        "title": calendar_name,
+        "title": calendar.summary,
         "days": days,
 
     }

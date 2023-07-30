@@ -33,7 +33,7 @@ class Display(models.Model):
     """Model to represent a display, and which calendars it has access to"""
     name = models.CharField(max_length=500)
     description = models.CharField(max_length=500)
-    calendars = models.ManyToManyField(Calendar)
+    calendar = models.ForeignKey(Calendar, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.name
