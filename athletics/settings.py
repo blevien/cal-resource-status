@@ -25,7 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'ftyui#$%^&*KJHGF5=2o)i5#-&kj9&#wkt@%w0+12!uut6#sn3&rg(-!&(*yhv8m^('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "False")
+
+if DEBUG:
+    SECURE_SSL_REDIRECT=False
+    SESSION_COOKIE_SECURE=False
+    CSRF_COOKIE_SECURE=False
 
 ALLOWED_HOSTS = ["sh-resources-05c4b7332eab.herokuapp.com", "localhost"]
 
@@ -131,3 +136,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
